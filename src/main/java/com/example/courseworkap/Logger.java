@@ -15,6 +15,9 @@ public class Logger {
     private static final String from = "liubomyr.antonyk.knm.2020@lpnu.ua";
     private static final String host = "smtp.gmail.com";
 
+    private Logger() {
+    }
+
     public static Session getSession() {
         Properties props = new Properties();
         props.put("mail.smtp.host",host);
@@ -42,7 +45,7 @@ public class Logger {
         try(FileWriter fw = new FileWriter("savedLogs.txt")) {
             fw.write(typicalAct.toString());
         } catch (Exception e) {
-            System.out.println("Помилка запису логів.");
+           Logger.logMistake("Помилка запису логів");
         }
     }
 
@@ -61,7 +64,7 @@ public class Logger {
     }
 
     public static void log(String text){
-        typicalAct.append(text);
+        typicalAct.append(text).append(System.lineSeparator());
     }
 
     public static void logMistake(String text){

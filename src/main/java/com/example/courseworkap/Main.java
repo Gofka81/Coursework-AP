@@ -20,9 +20,5 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch();
-        Logger.saveLogs();
-        if(Logger.haveMistakes()){
-            Logger.sendMessage();
-        }
     }
 }

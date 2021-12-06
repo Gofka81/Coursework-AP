@@ -1,5 +1,6 @@
 package com.example.courseworkap.controller;
 
+import com.example.courseworkap.Logger;
 import com.example.courseworkap.entity.music.Music;
 import com.example.courseworkap.manager.DBManager;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ public class TotalDurationController {
     @FXML
     private void goBack(ActionEvent event) throws IOException {
         StageController.getInstance().switchToMusicMenu(event);
+        Logger.log("["+getClass().getName()+"] Назад");
     }
 
     @FXML
