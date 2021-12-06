@@ -1,6 +1,8 @@
 package com.example.courseworkap.manager;
 
 import com.example.courseworkap.entity.music.*;
+import javafx.beans.value.ObservableStringValue;
+import javafx.beans.value.ObservableValue;
 
 public class MusicManager {
     private static String[] genres = {"Country","Electronic","Jazz","Pop","Rock","Hip hop","Another genre"};
@@ -18,7 +20,7 @@ public class MusicManager {
         return genres.length-1;
     }
 
-    public static Music getCreatedClass(int id, String name, int duration, int genre){
+    public static Music getCreatedClass(int id, ObservableStringValue name, ObservableValue<Integer> duration, int genre){
         Music currentMusic;
         switch (genre){
             case(0):
@@ -47,13 +49,7 @@ public class MusicManager {
         return currentMusic;
     }
 
-    public static void printMusicGenres(){
-        int count=0;
-        System.out.println("\n┌-----------------┐");
-        for(String s: genres){
-            count++;
-            System.out.format("|%1d|%-15s|%n",count,s);
-        }
-        System.out.println("└-----------------┘");
+    public static String[] getGenres() {
+        return genres;
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFA000;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.courseworkap.controller.MusicMenuController">
+   <children>
+      <Button layoutX="231.0" layoutY="346.0" mnemonicParsing="false" onAction="#deleteMusic" prefHeight="26.0" prefWidth="142.0" text="Видалити" />
+      <Button layoutX="425.0" layoutY="346.0" mnemonicParsing="false" onAction="#getMusicInRange" prefHeight="26.0" prefWidth="142.0" text="Пошук за діапазоном" />
+      <Button layoutX="37.0" layoutY="346.0" mnemonicParsing="false" onAction="#goBackToSetup" prefHeight="26.0" prefWidth="142.0" text="Назад" AnchorPane.bottomAnchor="27.600000000000023" AnchorPane.leftAnchor="37.0" />
+      <Button layoutX="429.0" layoutY="299.0" mnemonicParsing="false" onAction="#sortMusic" prefHeight="26.0" prefWidth="142.0" text="Сортування" />
+      <Button layoutX="37.0" layoutY="299.0" mnemonicParsing="false" onAction="#insertMusic" prefHeight="26.0" prefWidth="142.0" text="Додати" />
+      <Button layoutX="231.0" layoutY="299.0" mnemonicParsing="false" onAction="#getMusicDuration" prefHeight="26.0" prefWidth="142.0" text="Тривалість" />
+      <TableView fx:id="tableMusic" layoutX="20.0" layoutY="25.0" prefHeight="259.0" prefWidth="568.0">
+        <columns>
+          <TableColumn fx:id="nameMusic" prefWidth="338.39996337890625" text="Назва пісні" />
+          <TableColumn fx:id="durationMusic" prefWidth="93.5999755859375" text="Тривалість" />
+            <TableColumn fx:id="genreMusic" prefWidth="133.60003662109375" text="Жанр" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

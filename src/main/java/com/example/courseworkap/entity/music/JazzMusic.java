@@ -1,7 +1,11 @@
 package com.example.courseworkap.entity.music;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableStringValue;
+import javafx.beans.value.ObservableValue;
+
 public class JazzMusic extends Music{
-    public JazzMusic(String name, int duration){
-        super(name, duration, "Jazz");
+    public JazzMusic(ObservableStringValue name, ObservableValue<Integer> duration){
+        super(name, duration, new SimpleStringProperty("Jazz"));
     }
 }

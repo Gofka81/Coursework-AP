@@ -7,4 +7,6 @@ module com.example.courseworkap {
 
     opens com.example.courseworkap to javafx.fxml;
     exports com.example.courseworkap;
+    exports com.example.courseworkap.controller;
+    opens com.example.courseworkap.controller to javafx.fxml;
 }
