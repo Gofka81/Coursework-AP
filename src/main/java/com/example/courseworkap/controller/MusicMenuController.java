@@ -1,5 +1,6 @@
 package com.example.courseworkap.controller;
 
+import com.example.courseworkap.Logger;
 import com.example.courseworkap.entity.music.Music;
 import com.example.courseworkap.manager.DBManager;
 import com.example.courseworkap.manager.MusicManager;
@@ -7,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -17,10 +19,6 @@ public class MusicMenuController {
 
     private static MusicMenuController musicMenuController;
     private final ObservableList<Music> musicData = FXCollections.observableArrayList();
-
-    public MusicMenuController(){
-
-    }
 
     public static MusicMenuController getInstance(){
         if(musicMenuController == null){
@@ -43,6 +41,7 @@ public class MusicMenuController {
     @FXML
     private void  getMusicDuration(ActionEvent event) throws IOException {
         StageController.getInstance().switchToDurationMusic(event);
+        Logger.log("["+TotalDurationController.class.getName()+"] Загална довжина плейлисту");
     }
 
     @FXML
@@ -63,6 +62,14 @@ public class MusicMenuController {
         Music music = tableMusic.getSelectionModel().getSelectedItem();
         if(music != null) {
             DBManager.getInstance().deleteMusic(music);
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Виберіть яку музику видалити.");
+            Logger.log("[" + getClass().getName() + "] Музику не вибрано");
+            alert.showAndWait();
         }
         musicData.clear();
         initialize();
@@ -98,13 +105,6 @@ public class MusicMenuController {
             musicData.add(MusicManager.getCreatedClass(0,music.getName(),music.getDuration(),MusicManager.genreStringToIntConverter(music.getStyle().getValue())));
         }
 
-    }
-
-    public void loadTempData(List<Music> musicList){
-        musicData.clear();
-        for(Music music: musicList){
-            musicData.add(MusicManager.getCreatedClass(0,music.getName(),music.getDuration(),MusicManager.genreStringToIntConverter(music.getStyle().getValue())));
-        }
     }
 
     @FXML
