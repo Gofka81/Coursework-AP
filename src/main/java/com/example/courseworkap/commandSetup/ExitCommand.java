@@ -10,7 +10,6 @@ public class ExitCommand extends SetupCommand{
 
     @Override
     public boolean execute() {
-        Menu.setIsRunningProgram(false);
         return true;
     }
 }

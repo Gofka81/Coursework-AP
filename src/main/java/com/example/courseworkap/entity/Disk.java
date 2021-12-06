@@ -7,12 +7,26 @@ import java.util.List;
 
 public class Disk {
     private List<Music> musicList = new ArrayList<>();
+    private int id;
     private String name;
 
-    public Disk(){}
+    public Disk(){
+        id = 0;
+        name = "None";
+    }
 
     public Disk(String name){
+        id =0;
         this.name = name;
+    }
+
+    public Disk(int id,String name){
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public List<Music> getMusicList() {
@@ -44,12 +58,6 @@ public class Disk {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for(Music music: musicList){
-            sb.append(music.getName()).append(System.lineSeparator())
-                    .append(music.getDuration()).append(System.lineSeparator())
-                    .append(music.getStyle()).append(System.lineSeparator());
-        }
-        return sb.toString();
+        return name;
     }
 }

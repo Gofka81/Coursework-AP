@@ -1,12 +1,17 @@
 package com.example.courseworkap.entity.music;
 
+import javafx.beans.value.ObservableStringValue;
+import javafx.beans.value.ObservableValue;
+
+import java.util.Objects;
+
 public abstract class Music {
     private int id;
-    private String name;
-    private int duration;
-    private String style;
+    private ObservableStringValue name;
+    private ObservableValue<Integer> duration;
+    private ObservableStringValue style;
 
-    protected Music(String name, int duration, String style) {
+    protected Music(ObservableStringValue name, ObservableValue<Integer> duration,  ObservableStringValue style) {
         this.name = name;
         this.duration = duration;
         this.style = style;
@@ -20,37 +25,54 @@ public abstract class Music {
         this.id = id;
     }
 
-    public String getName() {
+    public ObservableStringValue getName() {
         return name;
     }
-    public int getDuration() {
+
+    public void setName(ObservableStringValue name) {
+        this.name = name;
+    }
+
+    public ObservableValue<Integer> getDuration() {
         return duration;
     }
-    public String getStyle() {
+
+    public void setDuration(ObservableValue<Integer> duration) {
+        this.duration = duration;
+    }
+
+    public  ObservableStringValue getStyle() {
         return style;
     }
+
+    public void setStyle( ObservableStringValue style) {
+        this.style = style;
+    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(name).append(System.lineSeparator()).append(duration).append(System.lineSeparator()).append(style).append(System.lineSeparator());
-        return sb.toString();
+        return name.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Music music = (Music) o;
+
+        if (id != music.id) return false;
+        if (!Objects.equals(duration.getValue(), music.duration.getValue())) return false;
+        if (name.toString() != null ? !name.toString().equals(music.name.toString()) : music.name.toString() != null) return false;
+        return style.toString() != null ? style.toString().equals(music.style.toString()) : music.style.toString() == null;
     }
 
     @Override
     public int hashCode() {
-        int hash=0;
-        hash += name.hashCode();
-        hash += duration*31;
-        hash+=  style.hashCode();
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(this == obj) {
-            return true;}
-        if(obj == null || getClass() != obj.getClass()){
-            return false;}
-        return hashCode() == obj.hashCode();
+        int result = id;
+        result = 31 * result + (name.toString() != null ? name.toString().hashCode() : 0);
+        result = 31 * result + duration.getValue();
+        result = 31 * result + (style.toString() != null ? style.toString().hashCode() : 0);
+        return result;
     }
 }

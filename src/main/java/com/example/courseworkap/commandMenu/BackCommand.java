@@ -17,7 +17,7 @@ public class BackCommand extends Command{
 
     @Override
     public boolean execute() {
-        Menu.setIsRunningMenu(false);
+
         return true;
     }
 }

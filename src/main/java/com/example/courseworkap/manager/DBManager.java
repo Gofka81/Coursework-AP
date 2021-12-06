@@ -2,6 +2,11 @@ package com.example.courseworkap.manager;
 
 import com.example.courseworkap.entity.Disk;
 import com.example.courseworkap.entity.music.Music;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.adapter.JavaBeanIntegerProperty;
+import javafx.beans.value.ObservableValue;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -57,9 +62,9 @@ public class DBManager {
     public void insertMusic(Music music, int disk)  {
         ResultSet rs = null;
         try(PreparedStatement pst = con.prepareStatement("INSERT INTO  mpdb.music_disk(name, duration, style_id, disk_id) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS)){
-            pst.setString(1, music.getName());
-            pst.setInt(2, music.getDuration());
-            pst.setInt(3, MusicManager.genreStringToIntConverter(music.getStyle()));
+            pst.setString(1, music.getName().getValue());
+            pst.setInt(2, music.getDuration().getValue());
+            pst.setInt(3, MusicManager.genreStringToIntConverter(music.getStyle().getValue()));
             pst.setInt(4, disk);
             pst.execute();
             rs = pst.getGeneratedKeys();
@@ -85,8 +90,8 @@ public class DBManager {
             rs = pst.executeQuery();
 
             while (rs.next()){
-                music.add(MusicManager.getCreatedClass(rs.getInt("id"),rs.getString("name"),
-                        rs.getInt("duration"),
+                music.add(MusicManager.getCreatedClass(rs.getInt("id"),new SimpleStringProperty(rs.getString("name")),
+                        (ObservableValue) new SimpleIntegerProperty(rs.getInt("duration")),
                         rs.getInt("style_id")));
             }
         } catch (SQLException e) {
@@ -111,8 +116,8 @@ public class DBManager {
             rs = pst.executeQuery();
 
             while (rs.next()){
-                music.add(MusicManager.getCreatedClass(rs.getInt("id"),rs.getString("name"),
-                        rs.getInt("duration"),
+                music.add(MusicManager.getCreatedClass(rs.getInt("id"),new SimpleStringProperty(rs.getString("name")),
+                        (ObservableValue) new SimpleIntegerProperty(rs.getInt("duration")),
                         rs.getInt("style_id")));
             }
         } catch (SQLException e) {
@@ -138,8 +143,8 @@ public class DBManager {
             rs = pst.executeQuery();
 
             while (rs.next()){
-                music.add(MusicManager.getCreatedClass(rs.getInt("id"),rs.getString("name"),
-                        rs.getInt("duration"),
+                music.add(MusicManager.getCreatedClass(rs.getInt("id"),new SimpleStringProperty(rs.getString("name")),
+                        (ObservableValue) new SimpleIntegerProperty(rs.getInt("duration")),
                         rs.getInt("style_id")));
             }
         } catch (SQLException e) {
@@ -158,9 +163,9 @@ public class DBManager {
 
     public void deleteMusic(Music music){
         try(PreparedStatement pst = con.prepareStatement("DELETE FROM mpdb.music_disk WHERE name = (?) AND duration = (?) AND style_id = (?)")){
-            pst.setString(1,music.getName());
-            pst.setInt(2,music.getDuration());
-            pst.setInt(3,MusicManager.genreStringToIntConverter(music.getStyle()));
+            pst.setString(1,music.getName().getValue());
+            pst.setInt(2,music.getDuration().getValue());
+            pst.setInt(3,MusicManager.genreStringToIntConverter(music.getStyle().getValue()));
             pst.execute();
         }catch (SQLException | NullPointerException ex){
             logger.log(Level.SEVERE,ex.getMessage());
@@ -191,9 +196,9 @@ public class DBManager {
         List<Disk> disks = new ArrayList<>();
         ResultSet rs = null;
         try (Statement st = con.createStatement()){
-            rs = st.executeQuery("SELECT name FROM mpdb.user_disks");
+            rs = st.executeQuery("SELECT id, name FROM mpdb.user_disks");
             while (rs.next()){
-                disks.add(new Disk(rs.getString("name")));
+                disks.add(new Disk(rs.getInt("id"),rs.getString("name")));
             }
         } catch (SQLException | NullPointerException e) {
             logger.log(Level.SEVERE,e.getMessage());
@@ -232,9 +237,9 @@ public class DBManager {
         try(PreparedStatement pst = con.prepareStatement("INSERT INTO mpdb.music_disk (name, duration, style_id, disk_id) VALUE (?,?,?,?)")){
             con.setAutoCommit(false);
             for(Music music: musicList){
-                pst.setString(1,music.getName());
-                pst.setInt(2,music.getDuration());
-                pst.setInt(3, MusicManager.genreStringToIntConverter(music.getStyle()));
+                pst.setString(1,music.getName().getValue());
+                pst.setInt(2,music.getDuration().getValue());
+                pst.setInt(3, MusicManager.genreStringToIntConverter(music.getStyle().getValue()));
                 pst.setInt(4,Menu.getCurrentDisk());
                 pst.addBatch();
                 pst.executeBatch();
@@ -243,5 +248,28 @@ public class DBManager {
         }catch (SQLException | NullPointerException ex){
             logger.log(Level.SEVERE,ex.getMessage());
         }
+    }
+
+    public int findTheLongest(){
+        ResultSet rs = null;
+        int max = 0;
+        try(PreparedStatement pst = con.prepareStatement("SELECT duration FROM mpdb.music_disk WHERE disk_id = (?) ORDER BY duration DESC LIMIT 1")){
+            pst.setInt(1,Menu.getCurrentDisk());
+            rs = pst.executeQuery();
+            if (rs.next()){
+                max = rs.getInt("duration");
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE,e.getMessage());
+        }finally {
+            if(rs!=null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    logger.log(Level.SEVERE,e.getMessage());
+                }
+            }
+        }
+        return max;
     }
 }

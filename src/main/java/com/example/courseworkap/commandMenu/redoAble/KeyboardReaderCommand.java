@@ -6,6 +6,8 @@ import com.example.courseworkap.entity.Disk;
 import com.example.courseworkap.manager.DBManager;
 import com.example.courseworkap.manager.Menu;
 import com.example.courseworkap.manager.MusicManager;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 
 import java.util.Scanner;
@@ -35,7 +37,6 @@ public class KeyboardReaderCommand extends Command implements RedoAble {
                 System.out.print("\nГаразд, тепер введи довжину треку (в секундах)\n>");
                 tempDuration = scanner.nextInt();
                 Disk disk = saveDisk(getDisk());
-                DBManager.getInstance().insertMusic(MusicManager.getCreatedClass(-1,tempName,tempDuration,tempStyle-1), Menu.getCurrentDisk());
                 this.setDisk(disk);
             }catch (Exception e){
                 System.out.println("Помилка вводу\n");

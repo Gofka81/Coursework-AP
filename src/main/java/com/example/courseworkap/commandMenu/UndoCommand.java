@@ -18,7 +18,7 @@ public class UndoCommand extends Command{
         if(!UndoManager.isEmpty()) {
             DBManager dbManager = DBManager.getInstance();
             dbManager.clearDisk(Menu.getCurrentDisk());
-            dbManager.loadMusicOnDisk(Objects.requireNonNull(UndoManager.pop()).getDisk().getMusicList());
+            dbManager.loadMusicOnDisk(UndoManager.pop().getDisk().getMusicList());
             return true;
         }
         System.out.println("Нема що скасовувати!");

@@ -14,10 +14,8 @@ public class CreateDiskCommand extends SetupCommand{
 
     @Override
     public boolean execute() {
-        System.out.println("Введіть назву нового диску:");
-        Scanner sc = new Scanner(System.in);
         DBManager dbManager = DBManager.getInstance();
-        dbManager.insertDisk(new Disk(sc.nextLine()));
+        //dbManager.insertDisk(new Disk(sc.nextLine()));
         return true;
     }
 }

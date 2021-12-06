@@ -13,7 +13,7 @@ public class NextMenuCommand extends SetupCommand{
             System.out.println("Спершу виберіть диск!");
             return false;
         }
-        Menu.setIsRunningMenu(true);
+
         return true;
     }
 }

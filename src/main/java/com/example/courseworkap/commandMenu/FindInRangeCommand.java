@@ -32,7 +32,7 @@ public class FindInRangeCommand extends Command{
         for(Music music: musicList){
             check = true;
             count++;
-            System.out.format("|%-3d|%-40s|%2d:%-2d| %-20s|%n",count,music.getName(),music.getDuration()/60,music.getDuration()%60,music.getStyle());
+            System.out.format("|%-3d|%-40s|%2d:%-2d| %-20s|%n",count,music.getName(),music.getDuration().getValue()/60,music.getDuration().getValue()%60,music.getStyle());
         }
         if (!check){
             System.out.println("Немає елементів");

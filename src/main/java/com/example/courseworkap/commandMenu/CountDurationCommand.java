@@ -18,7 +18,7 @@ public class CountDurationCommand extends Command{
         int duration=0;
         List<Music>musicList = DBManager.getInstance().findAllMusic(Menu.getCurrentDisk());
         for(Music music: musicList){
-            duration+= music.getDuration();
+            duration += music.getDuration().getValue();
         }
 
         System.out.format("%nTotal time is %d hours, %d minutes and %d seconds.",duration/3600,(duration%3600)/60,(duration%360)%60);
