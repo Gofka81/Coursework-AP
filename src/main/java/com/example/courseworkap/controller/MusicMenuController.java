@@ -2,7 +2,6 @@ package com.example.courseworkap.controller;
 
 import com.example.courseworkap.entity.music.Music;
 import com.example.courseworkap.manager.DBManager;
-import com.example.courseworkap.manager.Menu;
 import com.example.courseworkap.manager.MusicManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,12 +47,12 @@ public class MusicMenuController {
 
     @FXML
     private void sortMusic(ActionEvent event){
-        List<Music> musicList = DBManager.getInstance().findAllMusicByStyle(Menu.getCurrentDisk());
+        List<Music> musicList = DBManager.getInstance().findAllMusicByStyle(DBManager.getCurrentDisk());
         if(musicList.isEmpty()) {
             return;
         }
         DBManager dbManager = DBManager.getInstance();
-        dbManager.clearDisk(Menu.getCurrentDisk());
+        dbManager.clearDisk(DBManager.getCurrentDisk());
         dbManager.loadMusicOnDisk(musicList);
         musicData.clear();
         initialize();
@@ -93,7 +92,7 @@ public class MusicMenuController {
     }
 
     private void initData(){
-        List<Music> musicList = DBManager.getInstance().findAllMusic(Menu.getCurrentDisk());
+        List<Music> musicList = DBManager.getInstance().findAllMusic(DBManager.getCurrentDisk());
 
         for(Music music: musicList){
             musicData.add(MusicManager.getCreatedClass(0,music.getName(),music.getDuration(),MusicManager.genreStringToIntConverter(music.getStyle().getValue())));

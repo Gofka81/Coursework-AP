@@ -2,13 +2,13 @@ package com.example.courseworkap.controller;
 
 import com.example.courseworkap.entity.music.Music;
 import com.example.courseworkap.manager.DBManager;
-import com.example.courseworkap.manager.Menu;
 import com.example.courseworkap.manager.MusicManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -22,6 +22,9 @@ public class MusicInRangeController implements Initializable {
     private boolean doubleTap = false;
     private List<Music> musicList;
     private final ObservableList<Music> musicData = FXCollections.observableArrayList();
+
+    @FXML
+    private CheckBox checkBox;
 
     @FXML
     private Slider sliderMin;
@@ -50,9 +53,16 @@ public class MusicInRangeController implements Initializable {
 
     @FXML
     private void configureSliderMax(ActionEvent event){
-        sliderMax.setMin(sliderMin.getValue());
-        sliderMax.setDisable(false);
-        sliderMin.setDisable(true);
+        if(checkBox.isSelected()) {
+            sliderMax.setMin(sliderMin.getValue());
+            sliderMax.setDisable(false);
+            sliderMin.setDisable(true);
+        }
+        else{
+            sliderMax.setDisable(true);
+            sliderMin.setDisable(false);
+            sliderMin.setMax(sliderMax.getValue());
+        }
     }
 
     @FXML

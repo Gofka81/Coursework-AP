@@ -12,10 +12,10 @@
          </font>
       </Label>
       <Button layoutX="248.0" layoutY="322.0" mnemonicParsing="false" onAction="#findInRange" prefHeight="44.0" prefWidth="102.0" text="Підтвердити" />
-      <Slider fx:id="sliderMin" blockIncrement="250.0" layoutX="69.0" layoutY="227.0" max="1000.0" prefHeight="38.0" prefWidth="461.0" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sliderMin" blockIncrement="250.0" layoutX="69.0" layoutY="227.0" max="1000.0" minorTickCount="5" prefHeight="38.0" prefWidth="461.0" showTickLabels="true" showTickMarks="true" />
       <Slider fx:id="sliderMax" blockIncrement="250.0" disable="true" layoutX="68.0" layoutY="265.0" max="1000.0" prefHeight="38.0" prefWidth="462.0" showTickLabels="true" showTickMarks="true" value="100.0" />
-      <CheckBox layoutX="234.0" layoutY="191.0" mnemonicParsing="false" onAction="#configureSliderMax" text="Обмеження зверху" />
-      <TableView fx:id="tableMusic" layoutX="20.0" layoutY="25.0" prefHeight="275.0" prefWidth="568.0">
+      <CheckBox fx:id="checkBox" layoutX="234.0" layoutY="191.0" mnemonicParsing="false" onAction="#configureSliderMax" text="Обмеження зверху" />
+      <TableView fx:id="tableMusic" layoutX="20.0" layoutY="25.0" prefHeight="275.0" prefWidth="568.0" visible="false">
          <columns>
             <TableColumn fx:id="nameMusic" prefWidth="338.39996337890625" text="Назва пісні" />
             <TableColumn fx:id="durationMusic" prefWidth="93.5999755859375" text="Тривалість" />

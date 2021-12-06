@@ -2,10 +2,8 @@ package com.example.courseworkap.manager;
 
 import com.example.courseworkap.entity.Disk;
 import com.example.courseworkap.entity.music.Music;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.adapter.JavaBeanIntegerProperty;
 import javafx.beans.value.ObservableValue;
 
 import java.io.FileInputStream;
@@ -21,6 +19,7 @@ import java.util.logging.Logger;
 public class DBManager {
 
     private static DBManager dbManager;
+    private static int currentDisk=0;
     private Connection con;
     private static final Logger logger = Logger.getAnonymousLogger();
 
@@ -240,7 +239,7 @@ public class DBManager {
                 pst.setString(1,music.getName().getValue());
                 pst.setInt(2,music.getDuration().getValue());
                 pst.setInt(3, MusicManager.genreStringToIntConverter(music.getStyle().getValue()));
-                pst.setInt(4,Menu.getCurrentDisk());
+                pst.setInt(4,DBManager.getCurrentDisk());
                 pst.addBatch();
                 pst.executeBatch();
             }
@@ -254,7 +253,7 @@ public class DBManager {
         ResultSet rs = null;
         int max = 0;
         try(PreparedStatement pst = con.prepareStatement("SELECT duration FROM mpdb.music_disk WHERE disk_id = (?) ORDER BY duration DESC LIMIT 1")){
-            pst.setInt(1,Menu.getCurrentDisk());
+            pst.setInt(1,DBManager.getCurrentDisk());
             rs = pst.executeQuery();
             if (rs.next()){
                 max = rs.getInt("duration");
@@ -271,5 +270,13 @@ public class DBManager {
             }
         }
         return max;
+    }
+
+    public static int getCurrentDisk() {
+        return currentDisk;
+    }
+
+    public static void setCurrentDisk(int currentDisk) {
+        DBManager.currentDisk = currentDisk;
     }
 }

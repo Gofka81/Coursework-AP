@@ -2,10 +2,8 @@ package com.example.courseworkap.controller;
 
 import com.example.courseworkap.entity.music.Music;
 import com.example.courseworkap.manager.DBManager;
-import com.example.courseworkap.manager.Menu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.AccessibleAction;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
@@ -24,7 +22,7 @@ public class TotalDurationController {
     @FXML
     private void initialize(){
         int duration=0;
-        List<Music> musicList = DBManager.getInstance().findAllMusic(Menu.getCurrentDisk());
+        List<Music> musicList = DBManager.getInstance().findAllMusic(DBManager.getCurrentDisk());
         for(Music music: musicList){
             duration += music.getDuration().getValue();
         }

@@ -1,6 +1,5 @@
 package com.example.courseworkap;
 
-import com.example.courseworkap.manager.Menu;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

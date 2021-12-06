@@ -49,16 +49,6 @@ public class MusicManager {
         return currentMusic;
     }
 
-    public static void printMusicGenres(){
-        int count=0;
-        System.out.println("\n┌-----------------┐");
-        for(String s: genres){
-            count++;
-            System.out.format("|%1d|%-15s|%n",count,s);
-        }
-        System.out.println("└-----------------┘");
-    }
-
     public static String[] getGenres() {
         return genres;
     }
