@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFA000;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.courseworkap.controller.TotalDurationController">
+   <children>
+      <Button layoutX="233.0" layoutY="279.0" mnemonicParsing="false" onAction="#goBack" prefHeight="49.0" prefWidth="134.0" text="Окей" />
+      <Label layoutX="48.0" layoutY="128.0" text="Тривалість плейлисту">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="countDuration" layoutX="288.0" layoutY="128.0" prefHeight="30.0" prefWidth="273.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

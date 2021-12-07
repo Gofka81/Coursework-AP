@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFA000;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.courseworkap.controller.CreateDiskController">
+   <children>
+      <TextField fx:id="textField" layoutX="195.0" layoutY="177.0" prefHeight="46.0" prefWidth="209.0" />
+      <Label layoutX="225.0" layoutY="111.0" prefHeight="50.0" prefWidth="150.0" text="Назва диску">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="242.0" layoutY="243.0" mnemonicParsing="false" onAction="#createDisk" prefHeight="54.0" prefWidth="115.0" text="Додати!">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

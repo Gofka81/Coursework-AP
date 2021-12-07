@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFA000;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.courseworkap.controller.StartUIController">
+   <children>
+      <Button layoutX="54.0" layoutY="340.0" mnemonicParsing="false" onAction="#exit" prefHeight="50.0" prefWidth="100.0" text="Вихід" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button layoutX="517.0" layoutY="353.0" mnemonicParsing="false" onAction="#musicPlaylistScene" prefHeight="50.0" prefWidth="100.0" text="Далі" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Label layoutX="168.0" layoutY="62.0" text="Вибраний диск:" />
+      <ComboBox fx:id="diskComboBox" layoutX="282.0" layoutY="58.0" prefWidth="150.0" />
+      <Button layoutX="168.0" layoutY="210.0" mnemonicParsing="false" onAction="#deleteDisk" prefHeight="50.0" prefWidth="100.0" text="Видалити" />
+      <Button layoutX="332.0" layoutY="210.0" mnemonicParsing="false" onAction="#createDisk" prefHeight="50.0" prefWidth="100.0" text="Створити " />
+   </children>
+</AnchorPane>
