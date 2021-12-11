@@ -13,32 +13,32 @@ public class MusicManager {
         int count =0;
         for(String s: genres){
             if(s.equalsIgnoreCase(genre)){
-                return  count;
+                return  count+1;
             }
             count++;
         }
         return genres.length-1;
     }
 
-    public static Music getCreatedClass(int id, ObservableStringValue name, ObservableValue<Integer> duration, int genre){
+    public static Music getCreatedClass(int id, ObservableStringValue name, ObservableValue<Integer> duration, ObservableStringValue genre){
         Music currentMusic;
-        switch (genre){
-            case(0):
+        switch (genre.getValue()){
+            case("Country"):
                 currentMusic = new CountryMusic(name,duration);
                 break;
-            case(1):
+            case("Electronic"):
                 currentMusic = new ElectronicMusic(name,duration);
                 break;
-            case(2):
+            case("Jazz"):
                 currentMusic = new JazzMusic(name,duration);
                 break;
-            case(3):
+            case("Pop"):
                 currentMusic = new PopMusic(name,duration);
                 break;
-            case (4):
+            case ("Rock"):
                 currentMusic = new RockMusic(name, duration);
                 break;
-            case(5):
+            case("Hip hop"):
                 currentMusic = new HipHopMusic(name, duration);
                 break;
             default:

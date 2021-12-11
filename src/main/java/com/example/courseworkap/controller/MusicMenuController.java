@@ -102,7 +102,7 @@ public class MusicMenuController {
         List<Music> musicList = DBManager.getInstance().findAllMusic(DBManager.getCurrentDisk());
 
         for(Music music: musicList){
-            musicData.add(MusicManager.getCreatedClass(0,music.getName(),music.getDuration(),MusicManager.genreStringToIntConverter(music.getStyle().getValue())));
+            musicData.add(MusicManager.getCreatedClass(0,music.getName(),music.getDuration(),music.getStyle()));
         }
 
     }

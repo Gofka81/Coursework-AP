@@ -38,8 +38,8 @@ public class AddMusicController implements Initializable {
                 throw new Exception("Пусте поле вводу.");
             }
             DBManager.getInstance().insertMusic(MusicManager.getCreatedClass(0,new SimpleStringProperty(textFieldName.getText()),
-                    (ObservableValue) new SimpleIntegerProperty(Integer.parseInt(textFieldDuration.getText()) ),
-                    MusicManager.genreStringToIntConverter(musicComboBox.getValue())), DBManager.getCurrentDisk());
+                    (ObservableValue) new SimpleIntegerProperty(Integer.parseInt(textFieldDuration.getText())),
+                    new SimpleStringProperty(musicComboBox.getValue())), DBManager.getCurrentDisk());
             StageController.getInstance().switchToMusicMenu(event);
             Logger.log("["+getClass().getName()+"] Додано музику");
         } catch (Exception e) {

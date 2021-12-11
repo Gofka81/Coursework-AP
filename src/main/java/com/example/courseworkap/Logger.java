@@ -11,16 +11,16 @@ import java.util.Properties;
 public class Logger {
     private static final StringBuilder typicalAct = new StringBuilder();
     private static final StringBuilder criticalMistake = new StringBuilder();
-    private static final String to = "fasadgiven@gmail.com";
-    private static final String from = "liubomyr.antonyk.knm.2020@lpnu.ua";
-    private static final String host = "smtp.gmail.com";
+    private static final String TO = "fasadgiven@gmail.com";
+    private static final String FROM = "liubomyr.antonyk.knm.2020@lpnu.ua";
+    private static final String HOST = "smtp.gmail.com";
 
     private Logger() {
     }
 
     public static Session getSession() {
         Properties props = new Properties();
-        props.put("mail.smtp.host",host);
+        props.put("mail.smtp.host", HOST);
         props.put("mail.smtp.auth", "true");
         props.setProperty("mail.smtp.port", "25");
         props.put("mail.smtp.starttls.enable", "true");
@@ -35,8 +35,9 @@ public class Logger {
 
         return Session.getDefaultInstance(props,
                 new Authenticator() {
+                    @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(from,password);
+                        return new PasswordAuthentication(FROM,password);
                     }
                 });
     }
@@ -52,8 +53,8 @@ public class Logger {
     public static void sendMessage(){
         try {
             MimeMessage message = new MimeMessage(getSession());
-            message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
+            message.setFrom(new InternetAddress(FROM));
+            message.addRecipient(Message.RecipientType.TO,new InternetAddress(TO));
             message.setSubject("Program Errors");
             message.setText(criticalMistake.toString());
 
@@ -68,7 +69,7 @@ public class Logger {
     }
 
     public static void logMistake(String text){
-        criticalMistake.append(text);
+        criticalMistake.append(text).append(System.lineSeparator());
     }
 
     public static boolean haveMistakes(){

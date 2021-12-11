@@ -49,15 +49,6 @@ public class DBManager {
         return dbManager;
     }
 
-    public Connection getConnection(String connectionUrl){
-        try {
-            con = DriverManager.getConnection(connectionUrl);
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE,e.getMessage());
-        }
-        return con;
-    }
-
     public void insertMusic(Music music, int disk)  {
         ResultSet rs = null;
         try(PreparedStatement pst = con.prepareStatement("INSERT INTO  mpdb.music_disk(name, duration, style_id, disk_id) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS)){
@@ -84,14 +75,14 @@ public class DBManager {
     public List<Music> findAllMusic(int disk){
         List<Music> music = new ArrayList<>();
         ResultSet rs = null;
-        try (PreparedStatement pst = con.prepareStatement("SELECT id, name, duration, style_id FROM mpdb.music_disk WHERE disk_id = (?) ORDER BY id",Statement.RETURN_GENERATED_KEYS)){
+        try (PreparedStatement pst = con.prepareStatement("SELECT id, name, duration, d.name_genre FROM mpdb.music_disk INNER JOIN mpdb.music_genre d ON style_id=d.id_genre WHERE disk_id = (?) ORDER BY id",Statement.RETURN_GENERATED_KEYS)){
             pst.setInt(1, disk);
             rs = pst.executeQuery();
 
             while (rs.next()){
                 music.add(MusicManager.getCreatedClass(rs.getInt("id"),new SimpleStringProperty(rs.getString("name")),
                         (ObservableValue) new SimpleIntegerProperty(rs.getInt("duration")),
-                        rs.getInt("style_id")));
+                        new SimpleStringProperty(rs.getString("name_genre"))));
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE,e.getMessage());
@@ -110,14 +101,14 @@ public class DBManager {
     public List<Music> findAllMusicByStyle(int disk){
         List<Music> music = new ArrayList<>();
         ResultSet rs = null;
-        try (PreparedStatement pst = con.prepareStatement("SELECT id, name, duration, style_id FROM mpdb.music_disk WHERE disk_id = (?) ORDER BY style_id",Statement.RETURN_GENERATED_KEYS)){
+        try (PreparedStatement pst = con.prepareStatement("SELECT id, name, duration, d.name_genre FROM mpdb.music_disk INNER JOIN mpdb.music_genre d ON style_id = d.id_genre WHERE disk_id = (?) ORDER BY style_id",Statement.RETURN_GENERATED_KEYS)){
             pst.setInt(1, disk);
             rs = pst.executeQuery();
 
             while (rs.next()){
                 music.add(MusicManager.getCreatedClass(rs.getInt("id"),new SimpleStringProperty(rs.getString("name")),
                         (ObservableValue) new SimpleIntegerProperty(rs.getInt("duration")),
-                        rs.getInt("style_id")));
+                        new SimpleStringProperty(rs.getString("name_genre"))));
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE,e.getMessage());
@@ -136,7 +127,7 @@ public class DBManager {
     public List<Music> findAllMusicInRange(int min, int max){
         List<Music> music = new ArrayList<>();
         ResultSet rs = null;
-        try (PreparedStatement pst = con.prepareStatement("SELECT id, name, duration, style_id FROM mpdb.music_disk WHERE duration BETWEEN (?) AND (?)")){
+        try (PreparedStatement pst = con.prepareStatement("SELECT id, name, duration, d.name_genre FROM mpdb.music_disk INNER JOIN mpdb.music_genre d ON style_id = d.id_genre WHERE duration BETWEEN (?) AND (?)")){
             pst.setInt(1, min);
             pst.setInt(2, max);
             rs = pst.executeQuery();
@@ -144,7 +135,7 @@ public class DBManager {
             while (rs.next()){
                 music.add(MusicManager.getCreatedClass(rs.getInt("id"),new SimpleStringProperty(rs.getString("name")),
                         (ObservableValue) new SimpleIntegerProperty(rs.getInt("duration")),
-                        rs.getInt("style_id")));
+                        new SimpleStringProperty(rs.getString("name_genre"))));
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE,e.getMessage());
