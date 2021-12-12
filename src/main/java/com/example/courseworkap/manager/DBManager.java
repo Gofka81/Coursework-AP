@@ -1,5 +1,6 @@
 package com.example.courseworkap.manager;
 
+import com.example.courseworkap.Logger;
 import com.example.courseworkap.entity.Disk;
 import com.example.courseworkap.entity.music.Music;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -13,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class DBManager {
@@ -21,13 +21,12 @@ public class DBManager {
     private static DBManager dbManager;
     private static int currentDisk=0;
     private Connection con;
-    private static final Logger logger = Logger.getAnonymousLogger();
 
     private DBManager() {
         try {
             con = DriverManager.getConnection(getURL());
         } catch (SQLException e) {
-            logger.log(Level.SEVERE,e.getMessage());
+            Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
         }
     }
 
@@ -37,7 +36,7 @@ public class DBManager {
 
             properties.load(fis);
         } catch (IOException e) {
-            logger.log(Level.SEVERE,e.getMessage());
+            Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
         }
         return properties.getProperty("connection.url");
     }
@@ -59,14 +58,14 @@ public class DBManager {
             pst.execute();
             rs = pst.getGeneratedKeys();
         } catch (SQLException | NullPointerException e) {
-            logger.log(Level.SEVERE,e.getMessage());
+            Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
         }
         finally {
             if(rs != null){
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE,e.getMessage());
+                    Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
                 }
             }
         }
@@ -85,13 +84,13 @@ public class DBManager {
                         new SimpleStringProperty(rs.getString("name_genre"))));
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE,e.getMessage());
+            Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
         }finally {
             if(rs!=null){
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE,e.getMessage());
+                    Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
                 }
             }
         }
@@ -111,13 +110,13 @@ public class DBManager {
                         new SimpleStringProperty(rs.getString("name_genre"))));
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE,e.getMessage());
+            Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
         }finally {
             if(rs!=null){
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE,e.getMessage());
+                    Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
                 }
             }
         }
@@ -138,13 +137,13 @@ public class DBManager {
                         new SimpleStringProperty(rs.getString("name_genre"))));
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE,e.getMessage());
+            Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
         }finally {
             if(rs!=null){
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE,e.getMessage());
+                    Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
                 }
             }
         }
@@ -158,7 +157,7 @@ public class DBManager {
             pst.setInt(3,MusicManager.genreStringToIntConverter(music.getStyle().getValue()));
             pst.execute();
         }catch (SQLException | NullPointerException ex){
-            logger.log(Level.SEVERE,ex.getMessage());
+            Logger.logMistake("["+this.getClass().getSimpleName()+"]"+ex.getMessage());
         }
     }
 
@@ -169,14 +168,14 @@ public class DBManager {
             pst.execute();
             rs = pst.getGeneratedKeys();
         } catch (SQLException | NullPointerException e) {
-            logger.log(Level.SEVERE,e.getMessage());
+            Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
         }
         finally {
             if(rs != null){
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE,e.getMessage());
+                    Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
                 }
             }
         }
@@ -191,14 +190,14 @@ public class DBManager {
                 disks.add(new Disk(rs.getInt("id"),rs.getString("name")));
             }
         } catch (SQLException | NullPointerException e) {
-            logger.log(Level.SEVERE,e.getMessage());
+            Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
         }
         finally {
             try {
                 if(rs != null)
                     rs.close();
             } catch (SQLException e) {
-                logger.log(Level.SEVERE,e.getMessage());
+                Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
             }
         }
         return disks;
@@ -210,7 +209,7 @@ public class DBManager {
             pst.setInt(1,disk);
             pst.execute();
         }catch (SQLException | NullPointerException ex){
-            logger.log(Level.SEVERE,ex.getMessage());
+            Logger.logMistake("["+this.getClass().getSimpleName()+"]"+ex.getMessage());
         }
     }
     
@@ -219,7 +218,7 @@ public class DBManager {
             pst.setInt(1,disk);
             pst.execute();
         }catch (SQLException | NullPointerException ex){
-            logger.log(Level.SEVERE,ex.getMessage());
+            Logger.logMistake("["+this.getClass().getSimpleName()+"]"+ex.getMessage());
         }
     }
 
@@ -236,7 +235,7 @@ public class DBManager {
             }
             con.commit();
         }catch (SQLException | NullPointerException ex){
-            logger.log(Level.SEVERE,ex.getMessage());
+            Logger.logMistake("["+this.getClass().getSimpleName()+"]"+ex.getMessage());
         }
     }
 
@@ -250,13 +249,13 @@ public class DBManager {
                 max = rs.getInt("duration");
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE,e.getMessage());
+            Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
         }finally {
             if(rs!=null){
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE,e.getMessage());
+                    Logger.logMistake("["+this.getClass().getSimpleName()+"]"+e.getMessage());
                 }
             }
         }

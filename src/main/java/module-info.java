@@ -2,7 +2,7 @@ module com.example.courseworkap {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-    requires mail;
+    requires java.mail;
 
 
     opens com.example.courseworkap to javafx.fxml;

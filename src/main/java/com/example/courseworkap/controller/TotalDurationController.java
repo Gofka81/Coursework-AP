@@ -18,7 +18,7 @@ public class TotalDurationController {
     @FXML
     private void goBack(ActionEvent event) throws IOException {
         StageController.getInstance().switchToMusicMenu(event);
-        Logger.log("["+getClass().getName()+"] Назад");
+        Logger.log("["+getClass().getSimpleName()+"] Назад");
     }
 
     @FXML

@@ -11,27 +11,32 @@ import java.util.Properties;
 public class Logger {
     private static final StringBuilder typicalAct = new StringBuilder();
     private static final StringBuilder criticalMistake = new StringBuilder();
-    private static final String TO = "fasadgiven@gmail.com";
-    private static final String FROM = "liubomyr.antonyk.knm.2020@lpnu.ua";
     private static final String HOST = "smtp.gmail.com";
+    private static String TO;
+    private static String FROM;
 
     private Logger() {
     }
 
     public static Session getSession() {
+        Properties property = new Properties();
+        try(FileInputStream fis = new FileInputStream("app.properties")){
+            property.load(fis);
+        }  catch (IOException e) {
+            e.printStackTrace();
+        }
+        TO = property.getProperty("TO");
+        FROM = property.getProperty("FROM");
+
         Properties props = new Properties();
-        props.put("mail.smtp.host", HOST);
+        props.put("mail.smtp.host",HOST);
         props.put("mail.smtp.auth", "true");
         props.setProperty("mail.smtp.port", "25");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.ssl.protocols", "TLSv1.2");
 
-        try(FileInputStream fis = new FileInputStream("app.properties")){
-            props.load(fis);
-        }  catch (IOException e) {
-            e.printStackTrace();
-        }
-        String password = props.getProperty("password");
+
+        String password = property.getProperty("password");
 
         return Session.getDefaultInstance(props,
                 new Authenticator() {
