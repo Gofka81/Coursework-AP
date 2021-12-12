@@ -38,10 +38,10 @@ public class AddMusicController implements Initializable {
                 throw new Exception("Пусте поле вводу.");
             }
             DBManager.getInstance().insertMusic(MusicManager.getCreatedClass(0,new SimpleStringProperty(textFieldName.getText()),
-                    (ObservableValue) new SimpleIntegerProperty(Integer.parseInt(textFieldDuration.getText()) ),
-                    MusicManager.genreStringToIntConverter(musicComboBox.getValue())), DBManager.getCurrentDisk());
+                    (ObservableValue) new SimpleIntegerProperty(Integer.parseInt(textFieldDuration.getText())),
+                    new SimpleStringProperty(musicComboBox.getValue())), DBManager.getCurrentDisk());
             StageController.getInstance().switchToMusicMenu(event);
-            Logger.log("["+getClass().getName()+"] Додано музику");
+            Logger.log("["+getClass().getSimpleName()+"] Додано музику");
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -49,8 +49,8 @@ public class AddMusicController implements Initializable {
             alert.setContentText("Введено не вірний формат данних.\n"+e.getMessage());
 
             alert.showAndWait();
-            Logger.log("[" + getClass().getName() + "] Введено невірний формат");
-            Logger.logMistake("[" + getClass().getName() + "] Введено невірний формат " + e.getMessage());
+            Logger.log("[" + getClass().getSimpleName() + "] Введено невірний формат");
+            Logger.logMistake("[" + getClass().getSimpleName() + "] Введено невірний формат " + e.getMessage());
         }
     }
 

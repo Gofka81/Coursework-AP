@@ -1,7 +1,0 @@
-[com.example.courseworkap.controller.StartUIController] Диск вибрано
-[com.example.courseworkap.controller.AddMusicController] Введено невірний формат
-[com.example.courseworkap.controller.AddMusicController] Введено невірний формат
-[com.example.courseworkap.controller.AddMusicController] Введено невірний формат
-[com.example.courseworkap.controller.AddMusicController] Введено невірний формат
-[com.example.courseworkap.controller.AddMusicController] Додано музику
-[com.example.courseworkap.controller.StartUIController] Вихід з програми Код:0

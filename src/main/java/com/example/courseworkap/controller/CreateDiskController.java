@@ -22,12 +22,12 @@ public class CreateDiskController {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("Назвіть цей диск!");
-
+            Logger.logMistake("[" + getClass().getSimpleName() + "] Не названо диск!");
             alert.showAndWait();
         }else {
             DBManager.getInstance().insertDisk(new Disk(textField.getText()));
             StageController.getInstance().switchToStartView(event);
-            Logger.log("[" + getClass().getName() + "] Створено диск");
+            Logger.log("[" + getClass().getSimpleName() + "] Створено диск");
         }
     }
 }
