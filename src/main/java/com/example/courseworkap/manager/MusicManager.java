@@ -42,7 +42,7 @@ public class MusicManager {
                 currentMusic = new HipHopMusic(name, duration);
                 break;
             default:
-                currentMusic = new UknownMusic(name, duration);
+                currentMusic = new UnknownMusic(name, duration);
                 break;
         }
         currentMusic.setId(id);
